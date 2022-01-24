@@ -26,6 +26,16 @@
         </div>
     </form>
 </div>
+<div class="content">
+    {% for chat in profile.user.chats.all %}
+        <div class="box">
+            {{ chat.body }}
+            <span class="is-small has-text-grey-light">
+                ({{ chat.created_at }})
+            </span>
+        </div>
+    {% endfor %}
+</div>
 
 <div class="column is-one-third">
 
