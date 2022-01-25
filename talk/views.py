@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from .models import Profile
+from .forms import ChatForm
 
 def dashboard(request):
-    return render(request, "base.html")
+    form = ChatForm
+    return render(request, "talk/dashboard.html", {"form": form})
 
 
 def profile_list(request):
