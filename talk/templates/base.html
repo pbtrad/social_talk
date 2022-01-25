@@ -9,12 +9,14 @@
     <title>Social Talk</title>
 </head>
 <body>
+    <a href="{% url 'talk:dashboard' %} ">
     <section class="hero is-small is-success mb-4">
         <div class="hero-body">
         <h1 class="title is-1">Talk</h1>
         <a href="{% url 'talk:profile_list' %}" class="subtitle is-4">Keep chatting with friends!</a>
         </div>
     </section>
+    </a>
     <div class="container">
     <div class="columns">
         {% block content %}

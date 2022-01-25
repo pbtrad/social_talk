@@ -1,10 +1,20 @@
-from django.shortcuts import render
-from .models import Profile
+from django.shortcuts import render, redirect
+from .models import Profile, Chat
 from .forms import ChatForm
 
 def dashboard(request):
-    form = ChatForm
-    return render(request, "talk/dashboard.html", {"form": form})
+    form = ChatForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            chat = form.save(commit=False)
+            chat.user = request.user
+            chat.save()
+            return redirect("talk:dashboard")
+
+    followed_chats = Chat.objects.filter(
+        user__profile__in=request.user.profile.follows.all()
+    ).order_by("-created_at")
+    return render(request, "talk/dashboard.html", {"form": form, "chats": followed_chats})
 
 
 def profile_list(request):
